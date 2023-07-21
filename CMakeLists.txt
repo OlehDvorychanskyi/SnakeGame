@@ -5,10 +5,11 @@ include_directories("${CMAKE_SOURCE_DIR}/SFML/include")
 
 set(SOURCES
     src/main.cpp
+    src/Game.cpp
 )
 
 set(HEADERS 
-
+    src/Game.h
 )
 
 set(EXE_DIR ${CMAKE_BINARY_DIR}/Game)
