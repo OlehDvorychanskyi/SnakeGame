@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(Snake LANGUAGES CXX)
 
-include_directories("${CMAKE_SOURCE_DIR}/SFML/include")
-
 set(SOURCES
     src/main.cpp
     src/Game.cpp
