@@ -4,10 +4,14 @@ project(Snake LANGUAGES CXX)
 set(SOURCES
     src/main.cpp
     src/Game.cpp
+    src/Snake.cpp
+    src/SnakeSegment.cpp
 )
 
 set(HEADERS 
     src/Game.h
+    src/Snake.h
+    src/SnakeSegment.h
 )
 
 set(EXE_DIR ${CMAKE_BINARY_DIR}/Game)
