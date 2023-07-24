@@ -1,12 +1,12 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
-#include "Snake.h"
+#include "World.h"
 
 class Game
 {
 private:
     sf::RenderWindow m_window;
-    Snake m_snake;
+    World m_world;
 
     void processEvents();
     void update();

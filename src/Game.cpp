@@ -1,9 +1,11 @@
 #include "Game.h"
 
+#define NUMBER_OF_CELLS 25
+
 Game::Game()
-    : m_window(sf::VideoMode(800, 600), "Snake"), m_snake(sf::Vector2f(30.f, 30.f))
+    : m_window(sf::VideoMode(800, 800), "Snake"), m_world(sf::Vector2f(m_window.getSize().x / NUMBER_OF_CELLS, m_window.getSize().y / NUMBER_OF_CELLS), NUMBER_OF_CELLS)
 {
-    m_window.setFramerateLimit(5);
+    m_window.setFramerateLimit(7);
 }
 
 void Game::run()
@@ -27,19 +29,19 @@ void Game::processEvents()
         }
         if (event.type == sf::Event::KeyPressed)
         {
-            m_snake.ProcessInput(event.key.code);
+            m_world.processInput(event.key.code);
         }
     }
 }
 
 void Game::update()
 {
-    m_snake.update();
+    m_world.update();
 }
 
 void Game::render()
 {
     m_window.clear();
-    m_window.draw(m_snake);
+    m_window.draw(m_world);
     m_window.display();
 }

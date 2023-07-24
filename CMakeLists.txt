@@ -5,13 +5,19 @@ set(SOURCES
     src/main.cpp
     src/Game.cpp
     src/Snake.cpp
-    src/SnakeSegment.cpp
+    src/Cell.cpp
+    src/Fruit.cpp
+    src/World.cpp
+    src/NumberGenerator.cpp
 )
 
 set(HEADERS 
     src/Game.h
     src/Snake.h
-    src/SnakeSegment.h
+    src/Cell.h
+    src/Fruit.h
+    src/World.h
+    src/NumberGenerator.h
 )
 
 set(EXE_DIR ${CMAKE_BINARY_DIR}/Game)
