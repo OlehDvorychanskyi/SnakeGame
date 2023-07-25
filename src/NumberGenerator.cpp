@@ -11,3 +11,8 @@ int NumberGenerator::generateNumber()
 {
     return distribution(engine);
 }
+
+sf::Vector2i NumberGenerator::generatePosition() // Bug here: endless loop
+{
+    return sf::Vector2i(generateNumber(), generateNumber());
+}

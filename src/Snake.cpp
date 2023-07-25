@@ -1,7 +1,7 @@
 #include "Snake.h"
+#include <iostream>
 
-Snake::Snake(sf::Vector2f segment_size)
-    : m_segment_size{segment_size}
+Snake::Snake()
 {
     reset();
 }
@@ -10,22 +10,17 @@ void Snake::reset()
 {
     m_body.clear();
 
-    m_body.push_back(Cell(m_segment_size, 5, 5));
-    m_body.push_back(Cell(m_segment_size, 5, 6));
-    m_body.push_back(Cell(m_segment_size, 5, 7));
+    m_body.push_back(DataCell(5, 5, sf::Color::Green));
+    m_body.push_back(DataCell(5, 6, sf::Color::Green));
+    m_body.push_back(DataCell(5, 7, sf::Color::Green));
 
     for (int i = 0; i < m_body.size(); i++)
     {
         if (i == 0)
-        {
             m_body[i].SetColor(sf::Color::Yellow);
-        }
         else
-        {
             m_body[i].SetColor(sf::Color::Green);
-        }
     }
-
     SetDirection(None);
 }
 
@@ -41,7 +36,7 @@ void Snake::move()
 {
     for (int i = m_body.size() - 1; i > 0; i--)
     {
-        m_body[i].SetPosition(m_body[i - 1].GetPositionPX());
+        m_body[i].SetPosition(m_body[i - 1].GetPosition());
     }
 
     if (m_dir == Direction::Left) m_body[0].AddPosition(-1, 0);
@@ -50,55 +45,47 @@ void Snake::move()
     else if (m_dir == Direction::Down) m_body[0].AddPosition(0, 1);
 }
 
-void Snake::grow()
+void Snake::grow() // Bug here: add cell outside the map
 {  
-    if (m_body.empty() == true) return;
-    const Cell& tail = m_body[m_body.size() - 1];
-    sf::Vector2i tail_pos = tail.GetPositionXY();
+    const DataCell& tail = m_body[m_body.size() - 1];
+    sf::Vector2i tail_pos = tail.GetPosition();
     if (m_body.size() > 1)
     {
-        const Cell& pre_tail = m_body[m_body.size() - 2];
-        sf::Vector2i pre_tail_pos = pre_tail.GetPositionXY();
+        const DataCell& pre_tail = m_body[m_body.size() - 2];
+        sf::Vector2i pre_tail_pos = pre_tail.GetPosition();
         if (tail_pos.x == pre_tail_pos.x)
         {
             if (tail_pos.y > pre_tail_pos.y)    
             {
-                m_body.push_back(Cell(m_segment_size, tail_pos.x, tail_pos.y + 1));
+                if (tail_pos.y == 9) std::cout << "Outside the map" << std::endl;
+                m_body.push_back(DataCell(tail_pos.x, tail_pos.y + 1, sf::Color::Green));
             }
             else
             {
-                m_body.push_back(Cell(m_segment_size, tail_pos.x, tail_pos.y - 1));
+                if (tail_pos.y == 0) std::cout << "Outside the map" << std::endl;
+                m_body.push_back(DataCell(tail_pos.x, tail_pos.y - 1, sf::Color::Green));
             }
         }
         else if (tail_pos.y == pre_tail_pos.y)
         {
             if (tail_pos.x > pre_tail_pos.x)
             {
-                m_body.push_back(Cell(m_segment_size, tail_pos.x + 1, tail_pos.y));
+                if (tail_pos.x == 9) std::cout << "Outside the map" << std::endl;
+                m_body.push_back(DataCell(tail_pos.x + 1, tail_pos.y, sf::Color::Green));
             }
             else
             {
-                m_body.push_back(Cell(m_segment_size, tail_pos.x - 1, tail_pos.y));
+                if (tail_pos.x == 0) std::cout << "Outside the map" << std::endl;
+                m_body.push_back(DataCell(tail_pos.x - 1, tail_pos.y, sf::Color::Green));
             }
         }
     }
     else 
     {
-        if (m_dir == Direction::Down)   m_body.push_back(Cell(m_segment_size, tail_pos.x, tail_pos.y - 1));
-        else if (m_dir == Direction::Up)    m_body.push_back(Cell(m_segment_size, tail_pos.x, tail_pos.y + 1));
-        else if (m_dir == Direction::Left)    m_body.push_back(Cell(m_segment_size, tail_pos.x + 1, tail_pos.y));
-        else if (m_dir == Direction::Right)    m_body.push_back(Cell(m_segment_size, tail_pos.x - 1, tail_pos.y));
-    }
-}
-
-void Snake::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    if (m_body.empty() == false)
-    {
-        for (int i = 0; i < m_body.size(); i++)
-        {
-            target.draw(m_body[i].GetRectangleShape(), states);
-        }
+        if (m_dir == Direction::Down)   m_body.push_back(DataCell(tail_pos.x, tail_pos.y - 1, sf::Color::Green));
+        else if (m_dir == Direction::Up)    m_body.push_back(DataCell(tail_pos.x, tail_pos.y + 1, sf::Color::Green));
+        else if (m_dir == Direction::Left)    m_body.push_back(DataCell(tail_pos.x + 1, tail_pos.y, sf::Color::Green));
+        else if (m_dir == Direction::Right)    m_body.push_back(DataCell(tail_pos.x - 1, tail_pos.y, sf::Color::Green));
     }
 }
 

@@ -1,5 +1,6 @@
 #pragma once 
 #include <random>
+#include <SFML/Graphics.hpp>
 
 class NumberGenerator
 {
@@ -9,4 +10,5 @@ private:
 public: 
     NumberGenerator(const int& min, const int& max);
     int generateNumber();
+    sf::Vector2i generatePosition(); 
 };

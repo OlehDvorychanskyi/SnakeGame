@@ -1,11 +1,11 @@
 #include "Game.h"
 
-#define NUMBER_OF_CELLS 25
+#define NUMBER_OF_CELLS 10
 
 Game::Game()
     : m_window(sf::VideoMode(800, 800), "Snake"), m_world(sf::Vector2f(m_window.getSize().x / NUMBER_OF_CELLS, m_window.getSize().y / NUMBER_OF_CELLS), NUMBER_OF_CELLS)
 {
-    m_window.setFramerateLimit(7);
+    m_window.setFramerateLimit(10);
 }
 
 void Game::run()
