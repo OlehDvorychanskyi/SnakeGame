@@ -9,9 +9,12 @@ class Snake
 {
 private:
     std::vector<DataCell> m_body;
+    int m_cells_number;
     Direction m_dir;
+
+    void UpdateColor(const int& index);
 public:
-    Snake();
+    Snake(const int& number_of_cells);
     void reset();
     void update();
     void move();
@@ -20,10 +23,9 @@ public:
     void ProcessInput(const sf::Keyboard::Key& key);
     void SetDirection(Direction dir) { m_dir = dir; }
 
-    const sf::Vector2i& GetHeadPosition() { return m_body[0].GetPosition(); }
+    const sf::Vector2i& GetHeadPosition() { return m_body.front().GetPosition(); }
     const std::vector<DataCell>& GetBody() { return m_body; }
     
-    // For future:
-    // void checkCollision();
-    // void cut(int number_of_segments);
+    void checkCollision();
+    void cut(const int& number_of_segments);
 };

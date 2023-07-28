@@ -10,6 +10,8 @@ set(SOURCES
     src/NumberGenerator.cpp
     src/Grid.cpp
     src/DataCell.cpp
+    src/LightShader.cpp
+    src/PositionConverter.cpp
 )
 
 set(HEADERS 
@@ -20,6 +22,8 @@ set(HEADERS
     src/NumberGenerator.h
     src/Grid.h
     src/DataCell.h
+    src/LightShader.h
+    src/PositionConverter.h
 )
 
 set(EXE_DIR ${CMAKE_BINARY_DIR}/Game)

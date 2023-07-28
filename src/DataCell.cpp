@@ -22,6 +22,11 @@ void DataCell::AddColor(const sf::Color& color)
     m_color += color;
 }
 
+void DataCell::SubtructColor(const sf::Color& color)
+{
+    m_color -= color;
+}
+
 const sf::Color& DataCell::GetColor() const
 {
     return m_color;
@@ -51,3 +56,8 @@ const sf::Vector2i& DataCell::GetPosition() const
 {
     return m_position;
 }
+
+// const sf::Vector2f& DataCell::GetWorldPosition(const sf::Vector2f& cellSize)
+// {
+//     return {m_position.x * cellSize.x, m_position.y * cellSize.y};
+// }

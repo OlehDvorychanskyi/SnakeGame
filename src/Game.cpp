@@ -1,9 +1,9 @@
 #include "Game.h"
 
-#define NUMBER_OF_CELLS 10
-
 Game::Game()
-    : m_window(sf::VideoMode(800, 800), "Snake"), m_world(sf::Vector2f(m_window.getSize().x / NUMBER_OF_CELLS, m_window.getSize().y / NUMBER_OF_CELLS), NUMBER_OF_CELLS)
+    : m_window(sf::VideoMode(800, 800), "Snake"), 
+    m_positionConvertor(m_window.getSize(), sf::Vector2f((float)m_window.getSize().x / (float)m_cells_number, (float)m_window.getSize().y / (float)m_cells_number), m_cells_number),
+    m_world(m_positionConvertor)
 {
     m_window.setFramerateLimit(10);
 }

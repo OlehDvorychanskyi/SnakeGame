@@ -26,7 +26,14 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         for (int j = 0; j < m_grid[i].size(); j++)
         {
-            target.draw(m_grid[i][j], states);
+            if (m_grid[i][j].GetColor() == sf::Color(25, 25, 25))
+            {
+                target.draw(m_grid[i][j], states);
+            }
+            else 
+            {
+                target.draw(m_grid[i][j]);
+            }
         }
     }
 }

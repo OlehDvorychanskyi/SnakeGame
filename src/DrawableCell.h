@@ -11,5 +11,6 @@ public:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void SetColor(const sf::Color& color);
+    const sf::Color& GetColor() const { return m_rectangle.getFillColor(); }
 };
 
