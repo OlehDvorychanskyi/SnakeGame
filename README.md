@@ -1,6 +1,7 @@
 # SnakeGame
 
-Smth abou Snake Game...
+## SnakeGame ScreenShot
+![Screenshot](https://github.com/OlehDvorychanskyi/SnakeGame/blob/main/SnakeGame_screenshot.jpg)
 
 ## Installation
 
