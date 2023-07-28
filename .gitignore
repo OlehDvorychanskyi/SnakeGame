@@ -1,2 +1,8 @@
-build/
+build/_deps/
+build/*.txt
+build/*.cmake
+build/CMakeFiles/
+build/Game/*.dll
+build/Game/*.exe
+build/Makefile
 .vscode/
