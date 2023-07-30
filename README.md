@@ -16,7 +16,7 @@ To play the game, follow these installation steps:
 2. Navigate to the project's root directory:
 
     ```bash
-    cd your-game
+    cd SnakeGame
     ```
 
 3. Next, create a build directory and configure CMake based on your desired build configuration. For a release build, enter the following command:
@@ -38,5 +38,3 @@ To play the game, follow these installation steps:
     ```
 
 The game will now be compiled based on your chosen build configuration (Release or Debug), and the executable will be available in the "build/Game" directory. To run the game, simply execute the generated executable file.
-
-Enjoy playing the game! If you encounter any issues during the installation process, please refer to the troubleshooting section in this README.md or feel free to contact us for assistance.
