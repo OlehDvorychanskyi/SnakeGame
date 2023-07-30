@@ -50,10 +50,31 @@ void World::CheckColision()
 
 void World::RespawnFruit()
 {
-    m_fruit.SetPosition(m_number_generator.generateNumber(), m_number_generator.generateNumber());
+    updateValidFruitPositions();
+    m_fruit.SetPosition(m_number_generator.generatePosition(validFruitPositions));
+}
+
+void World::updateValidFruitPositions()
+{
+    validFruitPositions.clear();
+    for (int i = 0; i < m_converter->getCellsNumber(); i++)
+    {
+        for (int j = 0; j < m_converter->getCellsNumber(); j++)
+        {
+            if (std::find(m_snake.GetBody().begin(), m_snake.GetBody().end(), sf::Vector2i(i, j)) == m_snake.GetBody().end())
+            {
+                validFruitPositions.push_back(sf::Vector2i(i, j));
+            }
+        }
+    }
 }
 
 void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(m_grid, &m_light.get());
+}
+
+void World::resize()
+{
+    m_grid.resize(m_converter->getCellSize(), m_converter->getCellsNumber());
 }

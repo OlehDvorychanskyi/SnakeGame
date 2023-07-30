@@ -12,5 +12,8 @@ public:
 
     void SetColor(const sf::Color& color);
     const sf::Color& GetColor() const { return m_rectangle.getFillColor(); }
+
+
+    void SetSize(const sf::Vector2f& newSize) { m_rectangle.setSize(newSize); }
 };
 

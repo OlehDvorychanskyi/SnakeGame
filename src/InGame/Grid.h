@@ -15,4 +15,6 @@ public:
     void clear();
     void update(const std::vector<DataCell>& cells_info);
     void update(const DataCell& cell_info);
+
+    void resize(const sf::Vector2f cell_size, const int& cells_number);
 };

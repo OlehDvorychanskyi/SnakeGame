@@ -2,11 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.h"
 #include "NumberGenerator.h"
-
 #include "Grid.h"
-
 #include "LightShader.h"
-
 #include "PositionConverter.h"
 
 class World : public sf::Drawable
@@ -23,12 +20,10 @@ private:
 
     LightShader m_light;
 
-    
-
-
     void updateShaders();
 
-
+    std::vector<sf::Vector2i> validFruitPositions;
+    void updateValidFruitPositions();
 public:
     World(PositionConverter& converterRef);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -38,4 +33,6 @@ public:
     void CheckColision();
 
     void RespawnFruit();
+
+    void resize();
 };

@@ -13,6 +13,7 @@ private:
     Direction m_dir;
 
     void UpdateColor(const int& index);
+    bool CanMove(const Direction& dir);
 public:
     Snake(const int& number_of_cells);
     void reset();
@@ -24,7 +25,7 @@ public:
     void SetDirection(Direction dir) { m_dir = dir; }
 
     const sf::Vector2i& GetHeadPosition() { return m_body.front().GetPosition(); }
-    const std::vector<DataCell>& GetBody() { return m_body; }
+    std::vector<DataCell>& GetBody() { return m_body; }
     
     void checkCollision();
     void cut(const int& number_of_segments);

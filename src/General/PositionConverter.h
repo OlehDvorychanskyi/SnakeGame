@@ -16,4 +16,6 @@ public:
 
     const int& getCellsNumber() const { return m_cellsNumber; }
     const sf::Vector2f& getCellSize() const { return m_cellSize; }
+
+    void resize(const unsigned int& newWindowWidth, const unsigned int& newWindowHeight);
 };

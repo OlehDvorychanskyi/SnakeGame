@@ -3,28 +3,34 @@ project(Snake LANGUAGES CXX)
 
 set(SOURCES
     src/main.cpp
-    src/Game.cpp
-    src/Snake.cpp
-    src/DrawableCell.cpp
-    src/World.cpp
-    src/NumberGenerator.cpp
-    src/Grid.cpp
-    src/DataCell.cpp
-    src/LightShader.cpp
-    src/PositionConverter.cpp
+    src/General/Game.cpp
+    src/General/PositionConverter.cpp
+    src/General/NumberGenerator.cpp
+    
+    src/InGame/Snake.cpp
+    src/InGame/DrawableCell.cpp
+    src/InGame/World.cpp
+    src/InGame/Grid.cpp
+    src/InGame/DataCell.cpp
+    src/InGame/LightShader.cpp
 )
 
 set(HEADERS 
-    src/Game.h
-    src/Snake.h
-    src/DrawableCell.h
-    src/World.h
-    src/NumberGenerator.h
-    src/Grid.h
-    src/DataCell.h
-    src/LightShader.h
-    src/PositionConverter.h
+    src/General/Game.h
+    src/General/PositionConverter.h
+    src/General/NumberGenerator.h
+
+    src/InGame/Snake.h
+    src/InGame/DrawableCell.h
+    src/InGame/World.h
+    src/InGame/Grid.h
+    src/InGame/DataCell.h
+    src/InGame/LightShader.h
 )
+
+include_directories(${CMAKE_SOURCE_DIR}/src/General)
+include_directories(${CMAKE_SOURCE_DIR}/src/InGame)
+include_directories(${CMAKE_SOURCE_DIR}/src/MainMenu)
 
 set(EXE_DIR ${CMAKE_BINARY_DIR}/Game)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Game)

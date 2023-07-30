@@ -56,8 +56,3 @@ const sf::Vector2i& DataCell::GetPosition() const
 {
     return m_position;
 }
-
-// const sf::Vector2f& DataCell::GetWorldPosition(const sf::Vector2f& cellSize)
-// {
-//     return {m_position.x * cellSize.x, m_position.y * cellSize.y};
-// }

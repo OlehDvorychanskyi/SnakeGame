@@ -209,10 +209,41 @@ void Snake::grow()
     // }
 }
 
-void Snake::ProcessInput(const sf::Keyboard::Key& key)
+void Snake::ProcessInput(const sf::Keyboard::Key& key) 
 {
-    if ((key == sf::Keyboard::Key::Left || key == sf::Keyboard::Key::A) && m_dir != Direction::Right) SetDirection(Direction::Left);
-    else if ((key == sf::Keyboard::Key::Right || key == sf::Keyboard::Key::D) && m_dir != Direction::Left) SetDirection(Direction::Right);
-    else if ((key == sf::Keyboard::Up || key == sf::Keyboard::Key::W) && m_dir != Direction::Down) SetDirection(Direction::Up);
-    else if ((key == sf::Keyboard::Key::Down || key == sf::Keyboard::Key::S) && m_dir != Direction::Up) SetDirection(Direction::Down);
+    if ((key == sf::Keyboard::Key::Left || key == sf::Keyboard::Key::A) && CanMove(Direction::Left) == true) SetDirection(Direction::Left);
+    else if ((key == sf::Keyboard::Key::Right || key == sf::Keyboard::Key::D) && CanMove(Direction::Right) == true) SetDirection(Direction::Right);
+    else if ((key == sf::Keyboard::Up || key == sf::Keyboard::Key::W) && CanMove(Direction::Up) == true) SetDirection(Direction::Up);
+    else if ((key == sf::Keyboard::Key::Down || key == sf::Keyboard::Key::S) && CanMove(Direction::Down) == true) SetDirection(Direction::Down);
+}
+
+bool Snake::CanMove(const Direction& dir)
+{
+    const sf::Vector2i& head = m_body[0].GetPosition();
+    const sf::Vector2i& pre_head = m_body[1].GetPosition();
+
+    if (dir == Direction::Up)
+    {
+        if (!(head.y > pre_head.y))
+            return true;
+        return false;
+    }
+    else if (dir == Direction::Down)
+    {
+        if (!(head.y < pre_head.y))
+            return true;
+        return false;
+    }
+    else if (dir == Direction::Left)
+    {
+        if (!(head.x > pre_head.x))
+            return true;
+        return false;
+    }
+    else if (dir == Direction::Right)
+    {  
+        if (!(head.x < pre_head.x))
+            return true;
+        return false;
+    }
 }

@@ -20,6 +20,17 @@ Grid::Grid(const sf::Vector2f cell_size, const int& cells_number)
     }
 }
 
+void Grid::resize(const sf::Vector2f cell_size, const int& cells_number)
+{
+    for (int i = 0; i < cells_number; i++)
+    {
+        for (int j = 0; j < cells_number; j++)
+        {
+            m_grid[i][j].SetSize(cell_size);
+        }
+    }
+}
+
 void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     for (int i = 0; i < m_grid.size(); i++)

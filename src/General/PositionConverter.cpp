@@ -19,3 +19,9 @@ sf::Vector2f PositionConverter::toLightPositionInShader(const sf::Vector2i& posi
 {
     return {(position.x * m_cellSize.x) + (m_cellSize.x / 2.f), m_windowSize.y - ((position.y * m_cellSize.y) + (m_cellSize.y / 2.f))};
 }
+
+void PositionConverter::resize(const unsigned int& newWindowWidth, const unsigned int& newWindowHeight)
+{
+    m_cellSize = sf::Vector2f(newWindowWidth / m_cellsNumber, newWindowHeight / m_cellsNumber);
+    m_windowSize = sf::Vector2u(newWindowWidth, newWindowHeight);
+}

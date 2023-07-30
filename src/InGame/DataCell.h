@@ -21,5 +21,8 @@ public:
     void AddPosition(const sf::Vector2i& position);
     const sf::Vector2i& GetPosition() const; 
 
-    // const sf::Vector2f& GetWorldPosition(const sf::Vector2f& cellSize);
+    bool operator==(const sf::Vector2i& position) const 
+    {
+        return this->m_position == position;
+    }
 };
