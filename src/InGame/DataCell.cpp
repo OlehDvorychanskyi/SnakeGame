@@ -56,3 +56,8 @@ const sf::Vector2i& DataCell::GetPosition() const
 {
     return m_position;
 }
+
+sf::Vector2f DataCell::GetFloatPosition() const
+{
+    return {(float)m_position.x, (float)m_position.y};
+}

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 
-Snake::Snake(const int& number_of_cells)    
+Snake::Snake(const sf::Vector2i& number_of_cells)    
     : m_cells_number{number_of_cells}
 {
     reset();
@@ -109,9 +109,9 @@ void Snake::grow()
         {
             if (tail_pos.y > pre_tail_pos.y)    
             {
-                if (tail_pos.y == m_cells_number - 1)
+                if (tail_pos.y == m_cells_number.y - 1)
                 {
-                    if (tail_pos.x + 1 <= m_cells_number - 1)
+                    if (tail_pos.x + 1 <= m_cells_number.x - 1)
                     {
                         m_body.push_back(DataCell(tail_pos.x + 1, tail_pos.y));
                         UpdateColor(m_body.size() - 1);
@@ -134,7 +134,7 @@ void Snake::grow()
             {
                 if (tail_pos.y == 0)
                 {
-                    if (tail_pos.x + 1 <= m_cells_number - 1)
+                    if (tail_pos.x + 1 <= m_cells_number.x - 1)
                     {
                         m_body.push_back(DataCell(tail_pos.x + 1, tail_pos.y));
                         UpdateColor(m_body.size() - 1);
@@ -157,9 +157,9 @@ void Snake::grow()
         {
             if (tail_pos.x > pre_tail_pos.x)
             {
-                if (tail_pos.x == m_cells_number - 1)
+                if (tail_pos.x == m_cells_number.x - 1)
                 {
-                    if (tail_pos.y + 1 <= m_cells_number - 1)
+                    if (tail_pos.y + 1 <= m_cells_number.y - 1)
                     {
                         m_body.push_back(DataCell(tail_pos.x, tail_pos.y + 1));
                         UpdateColor(m_body.size() - 1);
@@ -181,7 +181,7 @@ void Snake::grow()
             {
                 if (tail_pos.x == 0)
                 {
-                    if (tail_pos.y + 1 <= m_cells_number - 1)
+                    if (tail_pos.y + 1 <= m_cells_number.y - 1)
                     {
                         m_body.push_back(DataCell(tail_pos.x, tail_pos.y + 1));
                         UpdateColor(m_body.size() - 1);

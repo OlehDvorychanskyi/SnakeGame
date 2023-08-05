@@ -9,7 +9,7 @@ class Grid : public sf::Drawable
 private:
     std::vector<std::vector<DrawableCell>> m_grid;
 public:
-    Grid(const sf::Vector2f cell_size, const int& cells_number);
+    Grid(const sf::Vector2f cell_size, const sf::Vector2i& cells_number);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void clear();

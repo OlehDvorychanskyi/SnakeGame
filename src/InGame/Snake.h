@@ -9,13 +9,13 @@ class Snake
 {
 private:
     std::vector<DataCell> m_body;
-    int m_cells_number;
+    sf::Vector2i m_cells_number;
     Direction m_dir;
 
     void UpdateColor(const int& index);
     bool CanMove(const Direction& dir);
 public:
-    Snake(const int& number_of_cells);
+    Snake(const sf::Vector2i& number_of_cells);
     void reset();
     void update();
     void move();

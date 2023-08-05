@@ -3,29 +3,32 @@
 #include "Snake.h"
 #include "NumberGenerator.h"
 #include "Grid.h"
-#include "LightShader.h"
-#include "PositionConverter.h"
+#include "PositionManager.h"
+#include "ShaderManager.h"
 
 class World : public sf::Drawable
 {
 private:
-    PositionConverter* m_converter;
+    PositionManager* m_positionConverter;
+    ShaderManager* m_shaderManager;
 
     Snake m_snake;
     DataCell m_fruit;
     NumberGenerator m_number_generator;
-    sf::Vector2f m_cells_size;
+
+    sf::Vector2f m_cell_size;
+    sf::Vector2i m_cellsNumber;
 
     Grid m_grid;
 
-    LightShader m_light;
+    sf::Shader* m_light;
 
     void updateShaders();
 
     std::vector<sf::Vector2i> validFruitPositions;
     void updateValidFruitPositions();
 public:
-    World(PositionConverter& converterRef);
+    World(PositionManager* converterPtr, ShaderManager* shaderManagerPtr, const sf::Vector2i& cellsNumber);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void update();

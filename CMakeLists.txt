@@ -4,28 +4,35 @@ project(Snake LANGUAGES CXX)
 set(SOURCES
     src/main.cpp
     src/General/Game.cpp
-    src/General/PositionConverter.cpp
+    src/General/PositionManager.cpp
     src/General/NumberGenerator.cpp
+    src/General/ConfigLoader.cpp
     
     src/InGame/Snake.cpp
     src/InGame/DrawableCell.cpp
     src/InGame/World.cpp
     src/InGame/Grid.cpp
     src/InGame/DataCell.cpp
-    src/InGame/LightShader.cpp
+
+    src/MainMenu/Button.cpp
+    src/MainMenu/MainMenu.cpp
 )
 
 set(HEADERS 
     src/General/Game.h
-    src/General/PositionConverter.h
+    src/General/PositionManager.h
     src/General/NumberGenerator.h
+    src/General/ShaderManager.h
+    src/General/ConfigLoader.h
 
     src/InGame/Snake.h
     src/InGame/DrawableCell.h
     src/InGame/World.h
     src/InGame/Grid.h
     src/InGame/DataCell.h
-    src/InGame/LightShader.h
+
+    src/MainMenu/Button.h
+    src/MainMenu/MainMenu.h
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/src/General)

@@ -1,11 +1,11 @@
 #include "Grid.h"
 
-Grid::Grid(const sf::Vector2f cell_size, const int& cells_number)
+Grid::Grid(const sf::Vector2f cell_size, const sf::Vector2i& cells_number)
 {
-    for (int i = 0; i < cells_number; i++)
+    for (int i = 0; i < cells_number.x; i++)
     {
         std::vector<DrawableCell> row;
-        for (int j = 0; j < cells_number; j++)
+        for (int j = 0; j < cells_number.y; j++)
         {
             if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
             {

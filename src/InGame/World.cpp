@@ -1,14 +1,17 @@
 #include "World.h"
 #include <iostream>
 
-World::World(PositionConverter& converterRef)
-    : m_number_generator{0, converterRef.getCellsNumber() - 1}, m_grid{converterRef.getCellSize(), converterRef.getCellsNumber()}, 
-    m_fruit{0, 0, sf::Color::Red}, m_snake{converterRef.getCellsNumber()}, m_light("shaders/CellShader.frag")
+World::World(PositionManager* converterPtr, ShaderManager* shaderManagerPtr, const sf::Vector2i& cellsNumber)
+    : m_snake(cellsNumber), m_fruit(0, 0, sf::Color::Red), m_grid{converterPtr->getCellSize(cellsNumber), cellsNumber}
 {
-    m_converter = &converterRef;
+    m_positionConverter = converterPtr;
+    m_shaderManager = shaderManagerPtr;
+    m_cellsNumber = cellsNumber;
+    m_cell_size = converterPtr->getCellSize(cellsNumber);
 
-    m_light.SetColor("snakeLightColor", m_snake.GetBody().at(0).GetColor());
-    m_light.SetColor("fruitLightColor", m_fruit.GetColor());
+    m_light = &m_shaderManager->get("World");
+    m_light->setUniform("snakeLightColor", sf::Vector3f(m_snake.GetBody().at(0).GetColor().r, m_snake.GetBody().at(0).GetColor().g, m_snake.GetBody().at(0).GetColor().b));
+    m_light->setUniform("fruitLightColor", sf::Vector3f(m_fruit.GetColor().r, m_fruit.GetColor().g, m_fruit.GetColor().b));
 }
 
 void World::update()
@@ -25,8 +28,8 @@ void World::update()
 
 void World::updateShaders()
 {
-    m_light.SetPosition("snakeLightPosition", m_converter->toLightPositionInShader(m_snake.GetBody().at(0).GetPosition()));
-    m_light.SetPosition("fruitLightPosition", m_converter->toLightPositionInShader(m_fruit.GetPosition()));
+    m_light->setUniform("snakeLightPosition", m_positionConverter->toCenterPositionInOpenGL(m_snake.GetBody().at(0).GetFloatPosition(), m_cell_size));
+    m_light->setUniform("fruitLightPosition", m_positionConverter->toCenterPositionInOpenGL(m_fruit.GetFloatPosition(), m_cell_size));
 }
 
 void World::processInput(const sf::Keyboard::Key& key)
@@ -42,7 +45,7 @@ void World::CheckColision()
         RespawnFruit();
     }
 
-    if (m_snake.GetHeadPosition().x < 0 || m_snake.GetHeadPosition().x >= m_converter->getCellsNumber() || m_snake.GetHeadPosition().y < 0 || m_snake.GetHeadPosition().y >= m_converter->getCellsNumber())
+    if (m_snake.GetHeadPosition().x < 0 || m_snake.GetHeadPosition().x >= m_cellsNumber.x || m_snake.GetHeadPosition().y < 0 || m_snake.GetHeadPosition().y >= m_cellsNumber.y)
     {
         m_snake.reset();
     }
@@ -57,9 +60,9 @@ void World::RespawnFruit()
 void World::updateValidFruitPositions()
 {
     validFruitPositions.clear();
-    for (int i = 0; i < m_converter->getCellsNumber(); i++)
+    for (int i = 0; i < m_cellsNumber.x; i++)
     {
-        for (int j = 0; j < m_converter->getCellsNumber(); j++)
+        for (int j = 0; j < m_cellsNumber.y; j++)
         {
             if (std::find(m_snake.GetBody().begin(), m_snake.GetBody().end(), sf::Vector2i(i, j)) == m_snake.GetBody().end())
             {
@@ -71,10 +74,10 @@ void World::updateValidFruitPositions()
 
 void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw(m_grid, &m_light.get());
+    target.draw(m_grid, &(*m_light));
 }
 
-void World::resize()
-{
-    m_grid.resize(m_converter->getCellSize(), m_converter->getCellsNumber());
-}
+// void World::resize()
+// {
+//     m_grid.resize(m_positionConverter->getCellSize(), m_converter->getCellsNumber());
+// }

@@ -1,8 +1,13 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
-#include "World.h"
 
-#include "PositionConverter.h"
+#include "World.h"
+#include "MainMenu.h"
+#include "PositionManager.h"
+#include "ShaderManager.h"
+
+#include "ConfigLoader.h"
+
 
 /* Things for first release:
 
@@ -25,23 +30,35 @@
     9. Add scores to game
 */
 
-enum class GameStage { MainMenu, InGame };
+
 
 class Game
 {
+    enum GameStages { Menu, InGame, ScoreMenu };
 private:
-    int m_cells_number = 15;
+    sf::Vector2i m_cells_number;
+    ConfigLoader config;
     
-    sf::RenderWindow m_window;
-    PositionConverter m_positionConvertor;
-    World m_world;
+    sf::RenderWindow* m_window;
+    PositionManager* m_positionManager;
+    ShaderManager* m_shaderManager;
+    FontManager* m_fontManager;
+    
+    World* m_world;
+    MainMenu* m_menu;
 
-    GameStage m_stages;
+    int m_stage;
     
+    sf::Clock clock;
+    sf::Context context;
+
+    void changeStage(const int& from, const int& to);
+
     void processEvents();
     void update();
     void render();
 public:
     Game();
+    ~Game();
     void run();
 };
