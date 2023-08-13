@@ -4,5 +4,7 @@ build/*.cmake
 build/CMakeFiles/
 build/Game/*.dll
 build/Game/*.exe
+build/Game/sounds
 build/Makefile
+build/*.json
 .vscode/

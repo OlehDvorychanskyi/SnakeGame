@@ -1,33 +1,31 @@
 #include "Game.h"
 #include <iostream>
 
+#include <NumberGenerator.h>
+#include <PositionManager.h>
+#include <ResourceHolder.h>
+#include <ConfigLoader.h>
+
 Game::Game()
 {
-    config.load("config.ini");
+    unsigned width = ConfigLoader::Config->get("Window", "width", 800U);
+    unsigned height = ConfigLoader::Config->get<unsigned>("Window", "height", 800U);
 
-    unsigned width = config.get<unsigned>("Window", "width", 800U);
-    unsigned height = config.get<unsigned>("Window", "height", 800U);
-
-    if (config.get<bool>("Window", "fullscreen", false) == false)
+    if (ConfigLoader::Config->get<bool>("Window", "fullscreen", false) == false)
         m_window = new sf::RenderWindow(sf::VideoMode(width, height), "Snake");
     else    
         m_window = new sf::RenderWindow(sf::VideoMode(width, height), "Snake", sf::Style::Fullscreen);
+
+    PositionManager::setRenderWindow(m_window);
     
-    int WidthCells = config.get<int>("World", "widthCells", 10);
-    int HeightCells = config.get<int>("World", "heightCells", 10);
+    int WidthCells = ConfigLoader::Config->get<int>("World", "widthCells", 10);
+    int HeightCells = ConfigLoader::Config->get<int>("World", "heightCells", 10);
     m_cells_number = {WidthCells, HeightCells};
 
-    m_positionManager = new PositionManager(m_window);
-    m_shaderManager = new ShaderManager();
-    m_fontManager = new FontManager();
-    
-    m_shaderManager->load<sf::Shader::Type>("World", "shaders/CellShader.frag", sf::Shader::Fragment);
-    m_shaderManager->load<sf::Shader::Type>("SnakeEffect", "shaders/SnakeEffect.frag", sf::Shader::Fragment);
-
-    m_fontManager->load("MainMenuFont", "fonts/Clancy-Free-BF648d4e44231d4.otf");
-
     m_stage = GameStages::Menu;
-    m_menu = new MainMenu(m_positionManager, m_shaderManager, m_fontManager);
+    m_menu = new MainMenu();
+
+    m_speed = ConfigLoader::Config->get<int>("Game", "speed", 10);
 }
 
 void Game::run()
@@ -51,18 +49,18 @@ void Game::processEvents()
             sf::View newView({(float)event.size.width / 2.f, (float)event.size.height / 2.f}, {event.size.width, event.size.height});
             m_window->setView(newView);
 
-            m_positionManager->resize(event.size.width, event.size.height);
+            // m_positionManager->resize(event.size.width, event.size.height);
 
-            if (m_stage == GameStages::InGame)
-            {
-                delete m_world;
-                m_world = new World(m_positionManager, m_shaderManager, m_cells_number);
-            } 
-            else if (m_stage == GameStages::Menu)
-            {
-                delete m_menu;
-                m_menu = new MainMenu(m_positionManager, m_shaderManager, m_fontManager);
-            }
+            // if (m_stage == GameStages::InGame)
+            // {
+            //     delete m_world;
+            //     m_world = new World(m_shaderManager, m_cells_number, m_fontManager);
+            // } 
+            // else if (m_stage == GameStages::Menu)
+            // {
+            //     delete m_menu;
+            //     m_menu = new MainMenu(m_shaderManager, m_fontManager);
+            // }
         }
 
         if (event.type == sf::Event::Closed)
@@ -124,9 +122,6 @@ Game::~Game()
 {
     delete m_world;
     delete m_menu;
-    delete m_positionManager;
-    delete m_shaderManager;
-    delete m_fontManager;
     delete m_window;
 }
 
@@ -136,8 +131,8 @@ void Game::changeStage(const int& from, const int& to)
     {
         if (to == GameStages::InGame)
         {
-            m_world = new World(m_positionManager, m_shaderManager, m_cells_number);
-            m_window->setFramerateLimit(10);
+            m_world = new World(m_cells_number);
+            m_window->setFramerateLimit(m_speed);
             m_stage = to;
         }
     }
@@ -147,7 +142,7 @@ void Game::changeStage(const int& from, const int& to)
         {
             delete m_world;
             m_world = nullptr;
-            m_window->setFramerateLimit(0);
+            m_window->setFramerateLimit(144);
             m_stage = to;
         }
     }

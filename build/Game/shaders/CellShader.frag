@@ -1,8 +1,10 @@
 uniform vec2 snakeLightPosition;
 uniform vec3 snakeLightColor;
 
-uniform vec2 fruitLightPosition;
-uniform vec3 fruitLightColor;
+uniform vec2 fruitLightPositions[5];
+uniform vec3 fruitLightColors[5];
+
+uniform vec2 cellSize;
 
 float GetBrightnessFactor(vec2 lightPosition, float lightRadius)
 {
@@ -13,18 +15,26 @@ float GetBrightnessFactor(vec2 lightPosition, float lightRadius)
 
 void main()
 {
-    float snakeBrightnessFactor = GetBrightnessFactor(snakeLightPosition, 175.f);
-    float fruitBrightnessFactor = GetBrightnessFactor(fruitLightPosition, 150.f);   
+    float lightRadius = cellSize.x * 2.0;
 
-    snakeLightColor *= 0.001;
-    fruitLightColor *= 0.001;
+    float snakeBrightnessFactor = GetBrightnessFactor(snakeLightPosition, lightRadius * 1.3);
+    vec3 currentSnakeLightColor = snakeLightColor * 0.001;
+    vec3 snakeFinalColor = currentSnakeLightColor * snakeBrightnessFactor;
 
-    vec3 cellColor = vec3(0.098, 0.098, 0.098);
+    vec3 cellColor = vec3(0.060, 0.060, 0.060);
+    vec3 finalColor = cellColor + snakeFinalColor;
 
-    vec3 snakeFinalColor = snakeLightColor * snakeBrightnessFactor;
-    vec3 fruitFinalColor = fruitLightColor * fruitBrightnessFactor;
+    float fruitBrightnessFactors[5];
+    vec3 fruitFinalColors[5];
 
-    vec3 finalColor = cellColor + snakeFinalColor + fruitFinalColor;
+    vec3 fruitFinalColor;
+    for (int i = 0; i < 5; i++)
+    {
+        fruitBrightnessFactors[i] = GetBrightnessFactor(fruitLightPositions[i], lightRadius);
+        fruitFinalColors[i] = fruitLightColors[i] * 0.001 * fruitBrightnessFactors[i];
+        fruitFinalColor += fruitFinalColors[i];
+    }
+    finalColor += fruitFinalColor;
 
     gl_FragColor = vec4(finalColor.xyz , 1.0);
 }

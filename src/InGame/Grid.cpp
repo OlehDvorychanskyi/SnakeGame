@@ -13,7 +13,7 @@ Grid::Grid(const sf::Vector2f cell_size, const sf::Vector2i& cells_number)
             }
             else 
             {
-                row.push_back(DrawableCell(cell_size, i, j, sf::Color(25, 25, 25)));
+                row.push_back(DrawableCell(cell_size, i, j, Grey));
             }
         }
         m_grid.push_back(row);
@@ -37,7 +37,7 @@ void Grid::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         for (int j = 0; j < m_grid[i].size(); j++)
         {
-            if (m_grid[i][j].GetColor() == sf::Color(25, 25, 25))
+            if (m_grid[i][j].GetColor() == Grey)
             {
                 target.draw(m_grid[i][j], states);
             }
@@ -58,7 +58,7 @@ void Grid::clear()
             if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))  
                 m_grid[i][j].SetColor(sf::Color::Black);
             else
-                m_grid[i][j].SetColor(sf::Color(25, 25, 25));
+                m_grid[i][j].SetColor(Grey);
         }
     }
 }

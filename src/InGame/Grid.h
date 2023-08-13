@@ -6,6 +6,7 @@
 
 class Grid : public sf::Drawable 
 {
+    const sf::Color Grey = sf::Color(10, 10, 10); // Dosn't effect to color because color is set in shader
 private:
     std::vector<std::vector<DrawableCell>> m_grid;
 public:

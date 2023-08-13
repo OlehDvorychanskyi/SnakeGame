@@ -14,6 +14,7 @@ private:
 
     void UpdateColor(const int& index);
     bool CanMove(const Direction& dir);
+
 public:
     Snake(const sf::Vector2i& number_of_cells);
     void reset();
@@ -24,7 +25,7 @@ public:
     void ProcessInput(const sf::Keyboard::Key& key);
     void SetDirection(Direction dir) { m_dir = dir; }
 
-    const sf::Vector2i& GetHeadPosition() { return m_body.front().GetPosition(); }
+    sf::Vector2i GetHeadPosition() { return m_body.front().GetPosition(); }
     std::vector<DataCell>& GetBody() { return m_body; }
     
     void checkCollision();

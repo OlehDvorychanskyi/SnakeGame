@@ -1,18 +1,22 @@
 #include "NumberGenerator.h"
 
-NumberGenerator::NumberGenerator()
+namespace NumberGenerator 
 {
-    std::random_device rd;
-    engine.seed(rd());
-}
+    std::default_random_engine engine;
 
-int NumberGenerator::generateNumberInRange(int min, int max) 
-{
-    std::uniform_int_distribution<int> rangeDistribution(min, max);
-    return rangeDistribution(engine);
-}
+    void init() 
+    {
+        engine.seed(std::random_device{}());
+    }
 
-sf::Vector2i NumberGenerator::generatePosition(const std::vector<sf::Vector2i>& validPositions)
-{
-    return validPositions[generateNumberInRange(0, validPositions.size() - 1)];
+    int inRange(int min, int max) 
+    {
+        std::uniform_int_distribution<int> rangeDistribution(min, max);
+        return rangeDistribution(engine);        
+    }
+
+    sf::Vector2i generatePosition(const std::vector<sf::Vector2i>& validPositions) 
+    {
+        return validPositions[inRange(0, validPositions.size() - 1)];
+    }
 }

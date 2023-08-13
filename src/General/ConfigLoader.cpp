@@ -2,37 +2,42 @@
 #include <iostream>
 #include <fstream>
 
-bool ConfigLoader::load(const std::string& path)
+namespace ConfigLoader
 {
-    std::ifstream file(path);
-    if (!file.is_open())
+    bool Loader::load(const std::string& path)
     {
-        std::cerr << "Failed to open file: " << path << std::endl;
-        return false;
-    }
-
-    std::string line;
-    std::string currentSection;
-    
-    while (std::getline(file, line))
-    {
-        if (line.empty() == false)
+        std::ifstream file(path);
+        if (!file.is_open())
         {
-            if (line[0] == '[' && line.back() == ']') 
+            std::cerr << "Failed to open file: " << path << std::endl;
+            return false;
+        }
+
+        std::string line;
+        std::string currentSection;
+        
+        while (std::getline(file, line))
+        {
+            if (line.empty() == false)
             {
-                currentSection = line.substr(1, line.size() - 2);
-            }
-            else 
-            {
-                size_t delimiterPos = line.find('=');
-                if (delimiterPos != std::string::npos) 
+                if (line[0] == '[' && line.back() == ']') 
                 {
-                    std::string key = line.substr(0, delimiterPos);
-                    std::string value = line.substr(delimiterPos + 1);
-                    m_data[currentSection][key] = value;
+                    currentSection = line.substr(1, line.size() - 2);
+                }
+                else 
+                {
+                    size_t delimiterPos = line.find('=');
+                    if (delimiterPos != std::string::npos) 
+                    {
+                        std::string key = line.substr(0, delimiterPos);
+                        std::string value = line.substr(delimiterPos + 1);
+                        m_data[currentSection][key] = value;
+                    }
                 }
             }
         }
+        return true;
     }
-    return true;
-}
+
+    Loader* Config = nullptr;
+};
