@@ -99,7 +99,7 @@ void Fruits::setLightColorArray(sf::Shader* shader)
     for (unsigned int i = 0; i < m_fruits.size(); i++)
     {
         tempColor = m_fruits[i].GetColor();
-        lightColors.push_back({ tempColor.r, tempColor.g, tempColor.b });
+        lightColors.push_back({ (float)tempColor.r, (float)tempColor.g, (float)tempColor.b });
     }
     shader->setUniformArray("fruitLightColors", &lightColors[0], lightColors.size()); 
     shader->setUniform("currentSize",  (int)m_fruits.size()); 

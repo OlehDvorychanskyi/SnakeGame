@@ -6,7 +6,7 @@ GameOverScreen::GameOverScreen()
     : m_text{"GAME OVER", ResourceHolders::FontHolder->get("MainMenuFont")}, 
     m_restart{"Space to Retry | Esc for Menu", ResourceHolders::FontHolder->get("MainMenuFont")}
 {   
-    darkBackground.setSize({PositionManager::m_window->getSize().x, PositionManager::m_window->getSize().y});
+    darkBackground.setSize({(float)PositionManager::m_window->getSize().x, (float)PositionManager::m_window->getSize().y});
     darkBackground.setFillColor(sf::Color(0, 0, 0, 150));
 
     m_text.setCharacterSize(50);

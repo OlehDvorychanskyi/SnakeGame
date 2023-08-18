@@ -92,7 +92,7 @@ void main()
     float toFirstLightPoint = distance(firstLightPosition, pixelPoint);
     float toSecondLightPoint = distance(secondLightPosition, pixelPoint);
 
-    float maxDistance = sqrt(pow(width, 2) + pow(height, 2));
+    float maxDistance = sqrt(pow(width, 2.0) + pow(height, 2.0));
 
     float radius = 50.0;
     float normalizedDistanceToFirstLightPoint = clamp(1.0 - (toFirstLightPoint / radius), 0.0, 1.0);

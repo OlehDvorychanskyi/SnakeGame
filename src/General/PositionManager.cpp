@@ -30,6 +30,6 @@ namespace PositionManager
 
     sf::Vector2f getMousePosition() {
         sf::Vector2i mousePos = sf::Mouse::getPosition(*(m_window));
-        return {mousePos.x, mousePos.y};
+        return {(float)mousePos.x, (float)mousePos.y};
     }
 }
