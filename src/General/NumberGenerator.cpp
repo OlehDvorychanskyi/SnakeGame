@@ -17,6 +17,8 @@ namespace NumberGenerator
 
     sf::Vector2i generatePosition(const std::vector<sf::Vector2i>& validPositions) 
     {
-        return validPositions[inRange(0, validPositions.size() - 1)];
+        if (validPositions.size() != 0)
+            return validPositions[inRange(0, validPositions.size() - 1)];
+        return {-1, -1};
     }
 }

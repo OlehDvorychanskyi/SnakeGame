@@ -19,14 +19,13 @@ private:
     sf::Shader* m_light;
 
     bool m_isOver = false;
-    GameOverScreen* m_OverScreen;
+    GameOverScreen m_OverScreen;
 
     void updateShaders();
 
     std::vector<sf::Vector2i> validFruitPositions;
     void updateValidFruitPositions();
-
-    int scores = 0;
+    void respawnAllFruits();
 public:
     World(const sf::Vector2i& cellsNumber);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

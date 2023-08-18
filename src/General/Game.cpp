@@ -22,10 +22,10 @@ Game::Game()
     int HeightCells = ConfigLoader::Config->get<int>("World", "heightCells", 10);
     m_cells_number = {WidthCells, HeightCells};
 
+    m_speed = ConfigLoader::Config->get<int>("Snake", "speed", 10);
+
     m_stage = GameStages::Menu;
     m_menu = new MainMenu();
-
-    m_speed = ConfigLoader::Config->get<int>("Game", "speed", 10);
 }
 
 void Game::run()
@@ -46,7 +46,7 @@ void Game::processEvents()
         if (event.type == sf::Event::Resized)
         {
             // Maybe create a window class and add this resize functionality into it
-            sf::View newView({(float)event.size.width / 2.f, (float)event.size.height / 2.f}, {event.size.width, event.size.height});
+            sf::View newView({(float)event.size.width / 2.f, (float)event.size.height / 2.f}, {(float)event.size.width, (float)event.size.height});
             m_window->setView(newView);
 
             // m_positionManager->resize(event.size.width, event.size.height);
@@ -71,7 +71,7 @@ void Game::processEvents()
             case GameStages::Menu:
                 m_menu->processInput(event);
                 if (m_menu->isButtonPressed("Start")) 
-                    changeStage(m_stage, GameStages::InGame);
+                    changeStage(GameStages::InGame);
                 else if (m_menu->isButtonPressed("Exit"))
                     m_window->close();
                 break;
@@ -83,7 +83,7 @@ void Game::processEvents()
 
                 if (event.key.code == sf::Keyboard::Escape)
                 {   
-                    changeStage(m_stage, GameStages::Menu);
+                    changeStage(GameStages::Menu);
                 }
                 break;
         }
@@ -125,9 +125,9 @@ Game::~Game()
     delete m_window;
 }
 
-void Game::changeStage(const int& from, const int& to)
+void Game::changeStage(int to)
 {
-    if (from == GameStages::Menu)
+    if (m_stage == GameStages::Menu)
     {
         if (to == GameStages::InGame)
         {
@@ -136,7 +136,7 @@ void Game::changeStage(const int& from, const int& to)
             m_stage = to;
         }
     }
-    else if (from == GameStages::InGame)
+    else if (m_stage == GameStages::InGame)
     {
         if (to == GameStages::Menu)
         {

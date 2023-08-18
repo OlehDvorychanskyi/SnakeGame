@@ -2,13 +2,6 @@ uniform float u_time;
 uniform vec2 rectSize;
 uniform vec2 rectPosition;
 
-void HSVtoRGB(out vec3 rgbColor, in vec3 hsv) 
-{
-    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-    vec3 p = abs(fract(hsv.xxx + K.xyz) * 6.0 - K.www);
-    rgbColor = hsv.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), hsv.y);
-}
-
 float mapRange(float x, float minIn, float maxIn, float minOut, float maxOut)
 {
     float normalizedValue = (x - minIn) / (maxIn - minIn);

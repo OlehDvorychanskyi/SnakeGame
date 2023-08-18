@@ -3,13 +3,12 @@
 
 class GameOverScreen : public sf::Drawable
 {
-private:
+public:
     sf::Text m_text;
     sf::Text m_restart;
     sf::Text m_scoresText;
     sf::RectangleShape darkBackground;
-public:
-    GameOverScreen(int scores);
-    void setText();
+
+    GameOverScreen();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

@@ -52,7 +52,7 @@ void DataCell::AddPosition(const sf::Vector2i& position)
     m_position += position;
 }
 
-const sf::Vector2i& DataCell::GetPosition() const
+sf::Vector2i DataCell::GetPosition() const
 {
     return m_position;
 }

@@ -1,8 +1,11 @@
 uniform vec2 snakeLightPosition;
 uniform vec3 snakeLightColor;
 
-uniform vec2 fruitLightPositions[5];
-uniform vec3 fruitLightColors[5];
+const int MAX_SIZE = 20;
+
+uniform int currentSize;
+uniform vec2 fruitLightPositions[MAX_SIZE];
+uniform vec3 fruitLightColors[MAX_SIZE];
 
 uniform vec2 cellSize;
 
@@ -24,11 +27,11 @@ void main()
     vec3 cellColor = vec3(0.060, 0.060, 0.060);
     vec3 finalColor = cellColor + snakeFinalColor;
 
-    float fruitBrightnessFactors[5];
-    vec3 fruitFinalColors[5];
+    float fruitBrightnessFactors[MAX_SIZE];
+    vec3 fruitFinalColors[MAX_SIZE];
 
     vec3 fruitFinalColor;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < currentSize; i++)
     {
         fruitBrightnessFactors[i] = GetBrightnessFactor(fruitLightPositions[i], lightRadius);
         fruitFinalColors[i] = fruitLightColors[i] * 0.001 * fruitBrightnessFactors[i];

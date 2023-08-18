@@ -19,7 +19,7 @@ public:
     void SetPosition(const sf::Vector2i& position);
     void AddPosition(const int& x, const int& y);
     void AddPosition(const sf::Vector2i& position);
-    const sf::Vector2i& GetPosition() const;
+    sf::Vector2i GetPosition() const;
     sf::Vector2f GetFloatPosition() const;  
 
     bool operator==(const sf::Vector2i& position) const 
