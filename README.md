@@ -73,8 +73,8 @@ You can customize various aspects of the game using the `config.ini` file. This 
 -  **speed:** The speed at which the snake moves (If you specify, for example, 10, it means that your snake will move at a speed of 10 cells per second).
 
 ## Screenshots  
-![Screenshot](https://github.com/OlehDvorychanskyi/SnakeGame/blob/main/SnakeGame_screenshot1.jpg)
-![Screenshot](https://github.com/OlehDvorychanskyi/SnakeGame/blob/main/SnakeGame_screenshot2.jpg) 
+![Screenshot](https://github.com/OlehDvorychanskyi/SnakeGame/blob/main/SnakeGame_screenshot1.png)
+![Screenshot](https://github.com/OlehDvorychanskyi/SnakeGame/blob/main/SnakeGame_screenshot2.png) 
 
 ## Contributing 
 Contributions are welcome! If you'd like to contribute to the project, follow these steps: 
