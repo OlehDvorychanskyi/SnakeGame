@@ -26,6 +26,7 @@ Game::Game()
 
     m_stage = GameStages::Menu;
     m_menu = new MainMenu();
+    m_window->setMouseCursorVisible(true);
 }
 
 void Game::run()
@@ -134,6 +135,7 @@ void Game::changeStage(int to)
             m_world = new World(m_cells_number);
             m_window->setFramerateLimit(m_speed);
             m_stage = to;
+            m_window->setMouseCursorVisible(false);
         }
     }
     else if (m_stage == GameStages::InGame)
@@ -144,6 +146,7 @@ void Game::changeStage(int to)
             m_world = nullptr;
             m_window->setFramerateLimit(144);
             m_stage = to;
+            m_window->setMouseCursorVisible(true);
         }
     }
 }
